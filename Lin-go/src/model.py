@@ -18,7 +18,7 @@ def infere_model(model_path,input_data,device):
 
         output_ids = model.generate(
             input_ids=input_ids, 
-            max_length=int(len(example_input_text)*100/35)+1, 
+            max_length=int(len(input_data[id])*100/35)+1, 
             num_beams=3, 
             repetition_penalty=3.0
         )[0].to("cpu")
