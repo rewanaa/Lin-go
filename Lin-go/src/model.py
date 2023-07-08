@@ -4,13 +4,12 @@ import json
 from tqdm import tqdm
 
 def infere_model(model_path,input_data,device):
-    WHITESPACE_HANDLER = lambda k: re.sub('\s+', ' ', re.sub('\n+', ' ', k.strip()))
     tokenizer = AutoTokenizer.from_pretrained(model_path)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_path).to(device)
     results = {}
     for id in tqdm(input_data.keys(),desc="inferring model"):
         input_ids = tokenizer(
-            [WHITESPACE_HANDLER(input_data[id])],
+            input_data[id],
             return_tensors="pt",
             padding="max_length",
             truncation=True,
@@ -18,10 +17,10 @@ def infere_model(model_path,input_data,device):
         )["input_ids"].to(device)
 
         output_ids = model.generate(
-            input_ids=input_ids,
-            max_length=84,
-            no_repeat_ngram_size=2,
-            num_beams=4
+            input_ids=input_ids, 
+            max_length=int(len(example_input_text)*100/35)+1, 
+            num_beams=3, 
+            repetition_penalty=3.0
         )[0].to("cpu")
 
         summary = tokenizer.decode(
