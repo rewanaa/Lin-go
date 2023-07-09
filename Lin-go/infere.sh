@@ -4,6 +4,6 @@
 # The email of the leader same as the one on codalab leaderboard
 python3 infere.py --batch-size 1 \
                   --model-dir "/mnt/models/" \
-                  --leader-codalab-email "test@aic.gov.eg" \
+                  --leader-codalab-email "20201700275@cis.asu.edu.eg" \
                   --result-save-path "/mnt/submissions/" \
                   --data-path "/mnt/data/val.jsonl" \
