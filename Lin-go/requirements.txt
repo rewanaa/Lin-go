@@ -7,5 +7,4 @@ farasapy
 python-bidi
 arabic-reshaper
 sentencepiece
-accelerate -U
 protobuf==3.20.*
